@@ -75,11 +75,11 @@ class WhatsAppCart {
     cartModal.id = 'cart-modal';
     cartModal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4';
     cartModal.innerHTML = `
-      <div class="bg-gray-900 rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
-        <div class="p-6 border-b border-gray-700">
+      <div class="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-hidden shadow-2xl">
+        <div class="p-6 border-b border-gray-200">
           <div class="flex justify-between items-center">
-            <h2 class="text-2xl font-black text-white">Mi Carrito</h2>
-            <button id="close-cart" class="text-gray-400 hover:text-white transition-colors">
+            <h2 class="text-2xl font-black text-gray-900">Mi Carrito</h2>
+            <button id="close-cart" class="text-gray-600 hover:text-gray-900 transition-colors">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
               </svg>
@@ -93,10 +93,10 @@ class WhatsAppCart {
           </div>
         </div>
         
-        <div class="p-6 border-t border-gray-700">
+        <div class="p-6 border-t border-gray-200">
           <div class="flex justify-between items-center mb-4">
-            <span class="text-xl font-bold text-white">Total:</span>
-            <span id="cart-total" class="text-2xl font-black text-red-500">${this.config.currency}0.00</span>
+            <span class="text-xl font-bold text-gray-900">Total:</span>
+            <span id="cart-total" class="text-2xl font-black text-orange-500">${this.config.currency}0.00</span>
           </div>
           <button id="whatsapp-order" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
             <div class="flex items-center justify-center">
@@ -186,26 +186,26 @@ class WhatsAppCart {
 
   private getQuantityModalHTML(product: Product): string {
     return `
-      <div class="bg-gray-900 rounded-xl p-6 max-w-md w-full">
+      <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl">
         <div class="text-center mb-6">
           <img src="${product.imagen}" alt="${product.nombre}" class="w-20 h-20 object-cover rounded-lg mx-auto mb-4">
-          <h3 class="text-xl font-bold text-white">${product.nombre}</h3>
-          <p class="text-red-400 font-semibold">${product.marca}</p>
-          <p class="text-2xl font-black text-white mt-2">${this.config.currency}${product.precio}</p>
+          <h3 class="text-xl font-bold text-gray-900">${product.nombre}</h3>
+          <p class="text-orange-500 font-semibold">${product.marca}</p>
+          <p class="text-2xl font-black text-gray-900 mt-2">${this.config.currency}${product.precio}</p>
         </div>
         
         <div class="mb-6">
-          <label class="block text-white font-semibold mb-2">Cantidad:</label>
+          <label class="block text-gray-900 font-semibold mb-2">Cantidad:</label>
           <div class="flex items-center justify-center space-x-4">
-            <button id="decrease-qty" class="bg-red-600 text-white w-10 h-10 rounded-full hover:bg-red-700 transition-colors">-</button>
-            <input type="number" id="quantity-input" value="1" min="1" max="${this.config.maxQuantity}" class="bg-gray-800 text-white text-center w-20 h-10 rounded-lg border border-gray-600 focus:border-red-500 focus:outline-none">
-            <button id="increase-qty" class="bg-red-600 text-white w-10 h-10 rounded-full hover:bg-red-700 transition-colors">+</button>
+            <button id="decrease-qty" class="bg-orange-500 text-white w-10 h-10 rounded-full hover:bg-orange-600 transition-colors">-</button>
+            <input type="number" id="quantity-input" value="1" min="1" max="${this.config.maxQuantity}" class="bg-gray-100 text-gray-900 text-center w-20 h-10 rounded-lg border border-gray-300 focus:border-orange-500 focus:outline-none">
+            <button id="increase-qty" class="bg-orange-500 text-white w-10 h-10 rounded-full hover:bg-orange-600 transition-colors">+</button>
           </div>
         </div>
         
         <div class="flex space-x-3">
-          <button id="cancel-add" class="flex-1 bg-gray-700 text-white py-3 rounded-lg hover:bg-gray-600 transition-colors">Cancelar</button>
-          <button id="confirm-add" class="flex-1 bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-lg hover:from-red-700 hover:to-red-800 transition-all">Agregar</button>
+          <button id="cancel-add" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg hover:bg-gray-300 transition-colors">Cancelar</button>
+          <button id="confirm-add" class="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all">Agregar</button>
         </div>
       </div>
     `;
@@ -391,8 +391,8 @@ class WhatsAppCart {
 
   private getEmptyCartHTML(): string {
     return `
-      <div class="text-center text-gray-400 py-8">
-        <svg class="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="text-center text-gray-500 py-8">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m-2.4 0L3 3m4 10v6a1 1 0 001 1h8a1 1 0 001-1v-6m-9 0h10"/>
         </svg>
         <p>Tu carrito está vacío</p>
@@ -407,14 +407,14 @@ class WhatsAppCart {
         <div class="flex-1">
           <h4 class="text-white font-bold">${item.nombre}</h4>
           <p class="text-gray-400 text-sm">${item.marca}</p>
-          <p class="text-red-400 font-semibold">${this.config.currency}${item.precio}</p>
+          <p class="text-orange-400 font-semibold">${this.config.currency}${item.precio}</p>
         </div>
         <div class="flex items-center space-x-2">
-          <button class="quantity-btn bg-red-600 text-white w-8 h-8 rounded-full text-sm hover:bg-red-700" data-id="${item.id}" data-action="decrease">-</button>
+          <button class="quantity-btn bg-orange-500 text-white w-8 h-8 rounded-full text-sm hover:bg-orange-600" data-id="${item.id}" data-action="decrease">-</button>
           <span class="text-white font-bold w-8 text-center">${item.quantity}</span>
-          <button class="quantity-btn bg-red-600 text-white w-8 h-8 rounded-full text-sm hover:bg-red-700" data-id="${item.id}" data-action="increase">+</button>
+          <button class="quantity-btn bg-orange-500 text-white w-8 h-8 rounded-full text-sm hover:bg-orange-600" data-id="${item.id}" data-action="increase">+</button>
         </div>
-        <button class="remove-btn text-red-400 hover:text-red-300" data-id="${item.id}">
+        <button class="remove-btn text-orange-400 hover:text-orange-500" data-id="${item.id}">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
           </svg>
@@ -553,5 +553,4 @@ const cartConfig: CartConfig = {
 // Inicialización con configuración tipada
 document.addEventListener('DOMContentLoaded', () => {
   (window as any).whatsappCart = new WhatsAppCart(cartConfig);
-  console.log('🛒 Sistema de carrito WhatsApp inicializado');
 });

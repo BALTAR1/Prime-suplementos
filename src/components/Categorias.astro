@@ -47,12 +47,12 @@ const { categorias, estadisticas } = categoriasData;
 		<!-- Grid de categorías -->
 		<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 			{categorias.slice(0, 4).map((categoria) => (
-				<div class="group relative bg-white border border-gray-200 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg rounded-xl overflow-hidden flex flex-col h-full">
+				<div class="group relative bg-gray-900 border border-gray-700 hover:border-orange-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 rounded-xl overflow-hidden flex flex-col h-full">
 					{/* Contenido textual y botón */}
 					<div class="relative p-6 z-10 flex flex-col flex-grow justify-between">
 					<div>
-						<h3 class="text-lg font-black text-gray-900 mb-2 group-hover:text-orange-500 transition-colors duration-300">{categoria.nombre}</h3>
-						<p class="text-sm text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300">{categoria.descripcion}</p>
+						<h3 class="text-lg font-black text-white mb-2 group-hover:text-orange-400 transition-colors duration-300">{categoria.nombre}</h3>
+						<p class="text-sm text-gray-300 mb-4 group-hover:text-gray-200 transition-colors duration-300">{categoria.descripcion}</p>
 					</div>
 
 					<a href={categoria.enlace} class="block w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg">
