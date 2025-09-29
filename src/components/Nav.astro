@@ -45,19 +45,15 @@
 		<div class="mobile-menu hidden bg-black border-t border-gray-800">
 			<!-- Menú móvil -->
 			<div class="px-2 pt-2 pb-3 space-y-1">
-				<a href="#inicio" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
+				<a href="/" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
 					Inicio
-				</a>
-				<a href="#categorias" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
-					Categorías
-					<span class="absolute bottom-1 left-3 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-16"></span>
-				</a>
-				<a href="#marcas" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
-					Marcas
-					<span class="absolute bottom-1 left-3 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-20"></span>
 				</a>
 				<a href="#about" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
 					Acerca de
+					<span class="absolute bottom-1 left-3 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-20"></span>
+				</a>
+				<a href="/productos" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
+					Productos
 					<span class="absolute bottom-1 left-3 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-20"></span>
 				</a>
 				<a href="#contacto" class="block px-3 py-2 text-white hover:text-orange-500 hover:bg-gray-900 rounded transition-all duration-200 relative group">
@@ -74,10 +70,27 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		const mobileMenuButton = document.querySelector('.mobile-menu-button');
 		const mobileMenu = document.querySelector('.mobile-menu');
+		const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
 
 		if (mobileMenuButton && mobileMenu) {
+			// Toggle del menú al hacer clic en el botón hamburguesa
 			mobileMenuButton.addEventListener('click', function() {
 				mobileMenu.classList.toggle('hidden');
+			});
+
+			// Cerrar menú al hacer clic en cualquier enlace
+			mobileMenuLinks.forEach(link => {
+				link.addEventListener('click', function() {
+					mobileMenu.classList.add('hidden');
+				});
+			});
+
+			// Cerrar menú al hacer clic fuera de él
+			document.addEventListener('click', function(event) {
+				const target = event.target as Element;
+				if (!mobileMenuButton.contains(target) && !mobileMenu.contains(target)) {
+					mobileMenu.classList.add('hidden');
+				}
 			});
 		}
 	});
