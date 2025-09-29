@@ -113,40 +113,44 @@ class WhatsAppCart {
   }
 
   private bindCartEvents(): void {
-    // Botones "Agregar al Carrito" en los productos
+    // Botones "Agregar" en los productos
     document.addEventListener('click', (e: Event) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'BUTTON' && target.textContent?.includes('Agregar al Carrito')) {
-        const productCard = target.closest('.product-card') as HTMLElement;
-        if (productCard) {
-          this.showQuantityModal(productCard);
+      if (target.classList.contains('add-to-cart-btn')) {
+        const productData = this.extractProductDataFromButton(target);
+        if (productData) {
+          this.addToCart(productData, 1);
         }
       }
     });
 
-    // Mostrar/ocultar carrito
-    const cartButton = document.getElementById('cart-button');
-    cartButton?.addEventListener('click', () => {
-      this.toggleCartModal(true);
-    });
-
-    const closeCartBtn = document.getElementById('close-cart');
-    closeCartBtn?.addEventListener('click', () => {
-      this.toggleCartModal(false);
-    });
-
-    // Cerrar modal al hacer click fuera
-    const cartModal = document.getElementById('cart-modal');
-    cartModal?.addEventListener('click', (e: Event) => {
-      if ((e.target as HTMLElement).id === 'cart-modal') {
-        this.toggleCartModal(false);
+    // Mostrar/ocultar carrito - usando delegación de eventos
+    document.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      
+      // Botón del carrito flotante
+      if (target.closest('#cart-button')) {
+        this.toggleCartModal(true);
+        return;
       }
-    });
-
-    // Botón de WhatsApp
-    const whatsappButton = document.getElementById('whatsapp-order');
-    whatsappButton?.addEventListener('click', () => {
-      this.sendToWhatsApp();
+      
+      // Botón de cerrar carrito
+      if (target.id === 'close-cart' || target.closest('#close-cart')) {
+        this.toggleCartModal(false);
+        return;
+      }
+      
+      // Cerrar modal al hacer click fuera
+      if (target.id === 'cart-modal') {
+        this.toggleCartModal(false);
+        return;
+      }
+      
+      // Botón de WhatsApp
+      if (target.id === 'whatsapp-order') {
+        this.sendToWhatsApp();
+        return;
+      }
     });
   }
 
@@ -230,7 +234,6 @@ class WhatsAppCart {
       const quantity = parseInt(quantityInput.value);
       this.addToCart(product, quantity);
       document.body.removeChild(modal);
-      this.showAddedToCartNotification(product.nombre, quantity);
     });
     
     cancelBtn?.addEventListener('click', () => {
@@ -279,6 +282,35 @@ class WhatsAppCart {
       };
     } catch (error) {
       console.error('Error extrayendo datos del producto:', error);
+      return null;
+    }
+  }
+
+  private extractProductDataFromButton(button: HTMLElement): Product | null {
+    try {
+      const id = button.dataset.productId;
+      const nombre = button.dataset.productName;
+      const marca = button.dataset.productBrand;
+      const categoria = button.dataset.productCategory;
+      const imagen = button.dataset.productImage;
+      const descripcion = button.dataset.productDescription;
+      const precioStr = button.dataset.productPrice;
+
+      if (!id || !nombre || !marca || !precioStr || !imagen) {
+        throw new Error('Datos del producto incompletos en el botón');
+      }
+
+      return {
+        id,
+        nombre,
+        marca,
+        categoria: categoria || 'sin-categoria',
+        precio: parseFloat(precioStr),
+        imagen,
+        descripcion: descripcion || ''
+      };
+    } catch (error) {
+      console.error('Error extrayendo datos del producto desde el botón:', error);
       return null;
     }
   }

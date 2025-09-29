@@ -96,8 +96,17 @@ const { productos, categorias, marcas } = productosData;
 													<span class="text-xl font-black text-orange-500">Consultar</span>
 												</div>
 											</div>
-											<button class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg">
-												Consultar Precio
+											<button 
+												class="add-to-cart-btn w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg"
+												data-product-id={producto.id}
+												data-product-name={producto.nombre}
+												data-product-brand={producto.marca}
+												data-product-category={producto.categoria}
+												data-product-price={producto.precio}
+												data-product-image={producto.imagen}
+												data-product-description={producto.descripcion}
+											>
+												Agregar
 											</button>
 										</div>
 									</div>
