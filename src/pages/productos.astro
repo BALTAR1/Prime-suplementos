@@ -87,7 +87,7 @@ const { productos, categorias, marcas } = productosData;
 
 				<!-- Productos -->
 				<div class="lg:col-span-9">
-					<div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					<div id="productsGrid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
 						{productos.map((producto) => {
 							const marcaId = marcas.find(m => m.nombre === producto.marca)?.id || producto.marca.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
 							// Encodear la URL de la imagen para manejar espacios y caracteres especiales
@@ -98,18 +98,18 @@ const { productos, categorias, marcas } = productosData;
 										<img src={imagenUrl} alt={producto.nombre} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 										<div class="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent"></div>
 									</div>
-									<div class="relative p-4 z-10 flex flex-col flex-grow">
+									<div class="relative p-3 sm:p-4 z-10 flex flex-col flex-grow">
 										<div class="text-xs text-orange-500 font-semibold mb-1">{producto.marca.toUpperCase()}</div>
-										<h3 class="text-lg font-black text-gray-900 mb-2 group-hover:text-orange-500 transition-colors duration-300 line-clamp-2">{producto.nombre}</h3>
-										<p class="text-sm text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300 flex-grow line-clamp-2">{producto.descripcion}</p>
+										<h3 class="text-sm sm:text-lg font-black text-gray-900 mb-2 group-hover:text-orange-500 transition-colors duration-300 line-clamp-2">{producto.nombre}</h3>
+										<p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 group-hover:text-gray-700 transition-colors duration-300 flex-grow line-clamp-2">{producto.descripcion}</p>
 										<div class="mt-auto">
-											<div class="flex items-center justify-between mb-4">
+											<div class="flex items-center justify-between mb-3 sm:mb-4">
 												<div class="flex items-center space-x-2">
-													<span class="text-xl font-black text-orange-500">Consultar</span>
+													<span class="text-lg sm:text-xl font-black text-orange-500">Consultar</span>
 												</div>
 											</div>
 											<button 
-												class="add-to-cart-btn w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg"
+												class="add-to-cart-btn w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-2 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg"
 												data-product-id={producto.id}
 												data-product-name={producto.nombre}
 												data-product-brand={producto.marca}
