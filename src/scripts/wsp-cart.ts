@@ -544,7 +544,7 @@ class WhatsAppCart {
 
 // Default cart configuration
 const cartConfig: CartConfig = {
-  whatsappNumber: '5492644032681',
+  whatsappNumber: '5492646615213',
   maxQuantity: 99,
   currency: '$',
   businessName: 'Suplementos Premium'
