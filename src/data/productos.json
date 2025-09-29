@@ -2,8 +2,8 @@
   "productos": [
     {
       "id": 1,
-      "nombre": "Whey Protein Gold Standard",
-      "marca": "Optimum Nutrition",
+      "nombre": "Whey Protein Gold 5lb",
+      "marca": "Gold Nutrition",
       "categoria": "proteina",
       "precio": 89.99,
       "precioAnterior": 105.99,

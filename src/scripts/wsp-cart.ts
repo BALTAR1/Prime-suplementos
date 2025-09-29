@@ -490,7 +490,6 @@ class WhatsAppCart {
     items.forEach((item, index) => {
       message += `\n${index + 1}. *${item.nombre}*\n`;
       message += `   • Marca: ${item.marca.toUpperCase()}\n`;
-      message += `   • Categoría: ${this.getCategoryName(item.categoria)}\n`;
       message += `   • Cantidad: ${item.quantity}\n`;
       message += `   • Precio unitario: ${this.config.currency}${item.precio}\n`;
       message += `   • Subtotal: ${this.config.currency}${(item.precio * item.quantity).toFixed(2)}\n`;
@@ -545,7 +544,7 @@ class WhatsAppCart {
 
 // Default cart configuration
 const cartConfig: CartConfig = {
-  whatsappNumber: '5492646615213',
+  whatsappNumber: '5492644032681',
   maxQuantity: 99,
   currency: '$',
   businessName: 'Suplementos Premium'
