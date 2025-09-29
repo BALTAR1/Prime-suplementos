@@ -1,0 +1,65 @@
+{
+  "categorias": [
+    {
+      "id": "proteina",
+      "nombre": "PROTEÍNA",
+      "descripcion": "Desarrolla masa muscular magra y acelera tu recuperación.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "creatina",
+      "nombre": "CREATINA",
+      "descripcion": "Aumenta tu fuerza y potencia en cada entrenamiento.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "vitaminas",
+      "nombre": "VITAMINAS",
+      "descripcion": "Optimiza tu salud y bienestar general.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "pre-entreno",
+      "nombre": "PRE-ENTRENO",
+      "descripcion": "Maximiza tu energía y concentración.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "aminoacidos",
+      "nombre": "AMINOÁCIDOS",
+      "descripcion": "Acelera tu recuperación muscular.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "quemadores",
+      "nombre": "QUEMADORES",
+      "descripcion": "Acelera tu metabolismo y quema grasa.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "ganadores",
+      "nombre": "GANADORES",
+      "descripcion": "Aumenta tu masa corporal de forma saludable.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    },
+    {
+      "id": "omega3",
+      "nombre": "OMEGA 3",
+      "descripcion": "Mejora tu salud cardiovascular y cerebral.",
+      "imagen": "/Gemini_Generated_Image_ajb31hajb31hajb3.png",
+      "enlace": "/productos"
+    }
+  ],
+  "estadisticas": {
+    "productos": "+50",
+    "categorias": "4",
+    "calidad": "100%"
+  }
+}

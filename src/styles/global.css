@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  background-color: #FFFFFF;
+  color: #1F2937;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.btn-prime {
+  background-color: #FF4C1D;
+  color: #FFFFFF;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-prime:hover {
+  background-color: #E63E00;
+  transform: translateY(-2px);
+}
