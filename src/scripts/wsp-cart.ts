@@ -147,7 +147,9 @@ class WhatsAppCart {
       }
       
       // Botón de WhatsApp
-      if (target.id === 'whatsapp-order') {
+      if (target.id === 'whatsapp-order' || target.closest('#whatsapp-order')) {
+        e.preventDefault();
+        e.stopPropagation();
         this.sendToWhatsApp();
         return;
       }

@@ -33,8 +33,17 @@ const { productos, categorias, marcas } = productosData;
 				
 				<!-- Sidebar filtros -->
 				<div class="lg:col-span-3">
-					<div class="bg-gray-50 border border-gray-200 rounded-xl p-6 sticky top-8">
-						<h2 class="text-xl font-black text-gray-900 mb-6">Filtros para los productos</h2>
+					<div class="bg-gray-50 border border-gray-200 rounded-xl sticky top-8">
+						<!-- Header filtros colapsable -->
+						<button id="filter-toggle" class="w-full p-4 lg:p-6 flex items-center justify-between text-left lg:cursor-default">
+							<h2 class="text-lg lg:text-xl font-black text-gray-900">Filtros</h2>
+							<svg id="filter-arrow" class="w-5 h-5 text-gray-600 transform transition-transform duration-200 lg:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+							</svg>
+						</button>
+						
+						<!-- Contenido filtros -->
+						<div id="filter-content" class="px-4 pb-4 lg:px-6 lg:pb-6 lg:pt-0 hidden lg:block">
 						
 						<!-- Categoría -->
 						<div class="mb-8">
@@ -68,10 +77,11 @@ const { productos, categorias, marcas } = productosData;
 							</div>
 						</div>
 
-						<!-- Botón limpiar -->
-						<button id="clearFilters" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg">
-							Limpiar Filtros
-						</button>
+							<!-- Botón limpiar -->
+							<button id="clearFilters" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-lg">
+								Limpiar Filtros
+							</button>
+						</div>
 					</div>
 				</div>
 
@@ -160,7 +170,7 @@ const { productos, categorias, marcas } = productosData;
 		const config = {
 			filterDelay: 150,
 			animationDelay: 50,
-			enableSearch: true,
+			enableSearch: false,
 			enableCounts: true
 		};
 		
@@ -178,6 +188,43 @@ const { productos, categorias, marcas } = productosData;
 		const styleSheet = document.createElement('style');
 		styleSheet.textContent = additionalStyles;
 		document.head.appendChild(styleSheet);
+		
+		// Toggle de filtros para móvil
+		const filterToggle = document.getElementById('filter-toggle');
+		const filterContent = document.getElementById('filter-content');
+		const filterArrow = document.getElementById('filter-arrow');
+		
+		filterToggle?.addEventListener('click', () => {
+			// Solo funciona en móvil (menos de lg)
+			if (window.innerWidth >= 1024) return;
+			
+			const isHidden = filterContent?.classList.contains('hidden');
+			
+			if (isHidden) {
+				filterContent?.classList.remove('hidden');
+				filterContent?.classList.add('block');
+				filterArrow?.classList.add('rotate-180');
+			} else {
+				filterContent?.classList.add('hidden');
+				filterContent?.classList.remove('block');
+				filterArrow?.classList.remove('rotate-180');
+			}
+		});
+		
+		// Manejar resize de ventana
+		window.addEventListener('resize', () => {
+			if (window.innerWidth >= 1024) {
+				// En desktop, siempre mostrar filtros
+				filterContent?.classList.remove('hidden');
+				filterContent?.classList.add('block');
+				filterArrow?.classList.remove('rotate-180');
+			} else {
+				// En móvil, colapsar por defecto
+				filterContent?.classList.add('hidden');
+				filterContent?.classList.remove('block');
+				filterArrow?.classList.remove('rotate-180');
+			}
+		});
 	});
 </script>
 
