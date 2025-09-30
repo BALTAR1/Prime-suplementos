@@ -129,6 +129,9 @@ const { productos, categorias, marcas } = productosData;
 												data-product-price={producto.precio}
 												data-product-image={imagenUrl}
 												data-product-description={producto.descripcion}
+												data-cart-action="add"
+												role="button"
+												aria-label={`Agregar ${producto.nombre} al carrito`}
 											>
 												Agregar
 											</button>

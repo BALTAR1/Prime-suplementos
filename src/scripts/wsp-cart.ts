@@ -113,13 +113,40 @@ class WhatsAppCart {
   }
 
   private bindCartEvents(): void {
-    // Función para manejar la adición al carrito
+    // Función para manejar la adición al carrito - resistente al traductor de Google
     const handleAddToCart = (e: Event) => {
       const target = e.target as HTMLElement;
-      if (target.classList.contains('add-to-cart-btn')) {
+      
+      // Múltiples estrategias para encontrar el botón (resistente al traductor de Google)
+      let cartButton: HTMLElement | null = null;
+      
+      // Estrategia 1: Buscar por atributo data-cart-action
+      cartButton = target.closest('[data-cart-action="add"]');
+      
+      // Estrategia 2: Buscar por data-product-id
+      if (!cartButton) {
+        cartButton = target.closest('[data-product-id]');
+      }
+      
+      // Estrategia 3: Buscar por clase CSS
+      if (!cartButton) {
+        cartButton = target.closest('.add-to-cart-btn');
+      }
+      
+      // Estrategia 4: Verificar si el elemento actual es el botón
+      if (!cartButton && (target.hasAttribute('data-product-id') || target.hasAttribute('data-cart-action'))) {
+        cartButton = target;
+      }
+      
+      // Validar que encontramos un botón válido
+      if (cartButton && (
+        cartButton.hasAttribute('data-cart-action') ||
+        cartButton.hasAttribute('data-product-id') ||
+        cartButton.classList.contains('add-to-cart-btn')
+      )) {
         e.preventDefault();
         e.stopPropagation();
-        const productData = this.extractProductDataFromButton(target);
+        const productData = this.extractProductDataFromButton(cartButton);
         if (productData) {
           this.addToCart(productData, 1);
         }
@@ -129,6 +156,31 @@ class WhatsAppCart {
     // Botones "Agregar" en los productos - soporte para click y touch
     document.addEventListener('click', handleAddToCart);
     document.addEventListener('touchend', handleAddToCart);
+    
+    // Observer para detectar cambios del DOM (traductor de Google)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          // Re-verificar botones después de cambios en el DOM
+          setTimeout(() => {
+            const buttons = document.querySelectorAll('[data-cart-action="add"]');
+            buttons.forEach(button => {
+              // Asegurar que los atributos estén presentes
+              if (!button.getAttribute('role')) {
+                button.setAttribute('role', 'button');
+              }
+            });
+          }, 100);
+        }
+      });
+    });
+    
+    // Observar cambios en el documento
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: false
+    });
 
     // Función para manejar eventos del carrito
     const handleCartEvents = (e: Event) => {
