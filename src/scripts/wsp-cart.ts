@@ -4,7 +4,7 @@ interface Product {
   nombre: string;
   marca: string;
   categoria: string;
-  precio: number;
+  precio: number | null;
   imagen: string;
   descripcion: string;
 }
@@ -191,7 +191,7 @@ class WhatsAppCart {
           <img src="${product.imagen}" alt="${product.nombre}" class="w-20 h-20 object-cover rounded-lg mx-auto mb-4">
           <h3 class="text-xl font-bold text-gray-900">${product.nombre}</h3>
           <p class="text-orange-500 font-semibold">${product.marca}</p>
-          <p class="text-2xl font-black text-gray-900 mt-2">${this.config.currency}${product.precio}</p>
+          <p class="text-2xl font-black text-gray-900 mt-2">${product.precio !== null ? (this.config.currency || '$') + product.precio : 'Consultar precio'}</p>
         </div>
         
         <div class="mb-6">
@@ -298,7 +298,7 @@ class WhatsAppCart {
       const descripcion = button.dataset.productDescription;
       const precioStr = button.dataset.productPrice;
 
-      if (!id || !nombre || !marca || !precioStr || !imagen) {
+      if (!id || !nombre || !marca || !imagen) {
         throw new Error('Datos del producto incompletos en el botón');
       }
 
@@ -307,7 +307,7 @@ class WhatsAppCart {
         nombre,
         marca,
         categoria: categoria || 'sin-categoria',
-        precio: parseFloat(precioStr),
+        precio: precioStr && precioStr !== 'null' ? parseFloat(precioStr) : null,
         imagen,
         descripcion: descripcion || ''
       };
@@ -407,7 +407,7 @@ class WhatsAppCart {
         <div class="flex-1">
           <h4 class="text-white font-bold">${item.nombre}</h4>
           <p class="text-gray-400 text-sm">${item.marca}</p>
-          <p class="text-orange-400 font-semibold">${this.config.currency}${item.precio}</p>
+          <p class="text-orange-400 font-semibold">${item.precio !== null ? (this.config.currency || '$') + item.precio : 'Consultar'}</p>
         </div>
         <div class="flex items-center space-x-2">
           <button class="quantity-btn bg-orange-500 text-white w-8 h-8 rounded-full text-sm hover:bg-orange-600" data-id="${item.id}" data-action="decrease">-</button>
@@ -489,13 +489,28 @@ class WhatsAppCart {
     
     items.forEach((item, index) => {
       message += `\n${index + 1}. *${item.nombre}*\n`;
-      message += `   • Marca: ${item.marca.toUpperCase()}\n`;
       message += `   • Cantidad: ${item.quantity}\n`;
-      message += `   • Precio unitario: ${this.config.currency}${item.precio}\n`;
-      message += `   • Subtotal: ${this.config.currency}${(item.precio * item.quantity).toFixed(2)}\n`;
+      if (item.precio !== null) {
+        message += `   • Precio unitario: ${this.config.currency}${item.precio}\n`;
+        message += `   • Subtotal: ${this.config.currency}${(item.precio * item.quantity).toFixed(2)}\n`;
+      } else {
+        message += `   • Precio: Consultar\n`;
+      }
     });
     
-    message += `\n*💰 TOTAL: ${this.config.currency}${totalPrice.toFixed(2)}*\n\n`;
+    const hasProductsWithoutPrice = items.some(item => item.precio === null);
+    
+    if (hasProductsWithoutPrice) {
+      if (totalPrice > 0) {
+        message += `\n*💰 TOTAL PRODUCTOS CON PRECIO: ${this.config.currency}${totalPrice.toFixed(2)}*\n`;
+        message += `*(Productos sin precio: consultar)*\n\n`;
+      } else {
+        message += `\n*💰 TOTAL: A consultar*\n\n`;
+      }
+    } else {
+      message += `\n*💰 TOTAL: ${this.config.currency}${totalPrice.toFixed(2)}*\n\n`;
+    }
+    
     message += '¿Podrían confirmar disponibilidad y forma de pago? ¡Gracias!';
     
     return encodeURIComponent(message);
@@ -516,7 +531,7 @@ class WhatsAppCart {
   }
 
   private getTotalPrice(): number {
-    return Array.from(this.cart.values()).reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+    return Array.from(this.cart.values()).reduce((sum, item) => sum + ((item.precio || 0) * item.quantity), 0);
   }
 
   // Métodos públicos para API externa
