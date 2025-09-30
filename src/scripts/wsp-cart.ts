@@ -113,29 +113,39 @@ class WhatsAppCart {
   }
 
   private bindCartEvents(): void {
-    // Botones "Agregar" en los productos
-    document.addEventListener('click', (e: Event) => {
+    // Función para manejar la adición al carrito
+    const handleAddToCart = (e: Event) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains('add-to-cart-btn')) {
+        e.preventDefault();
+        e.stopPropagation();
         const productData = this.extractProductDataFromButton(target);
         if (productData) {
           this.addToCart(productData, 1);
         }
       }
-    });
+    };
 
-    // Mostrar/ocultar carrito - usando delegación de eventos
-    document.addEventListener('click', (e: Event) => {
+    // Botones "Agregar" en los productos - soporte para click y touch
+    document.addEventListener('click', handleAddToCart);
+    document.addEventListener('touchend', handleAddToCart);
+
+    // Función para manejar eventos del carrito
+    const handleCartEvents = (e: Event) => {
       const target = e.target as HTMLElement;
       
       // Botón del carrito flotante
       if (target.closest('#cart-button')) {
+        e.preventDefault();
+        e.stopPropagation();
         this.toggleCartModal(true);
         return;
       }
       
       // Botón de cerrar carrito
       if (target.id === 'close-cart' || target.closest('#close-cart')) {
+        e.preventDefault();
+        e.stopPropagation();
         this.toggleCartModal(false);
         return;
       }
@@ -153,7 +163,11 @@ class WhatsAppCart {
         this.sendToWhatsApp();
         return;
       }
-    });
+    };
+
+    // Mostrar/ocultar carrito - usando delegación de eventos con soporte táctil
+    document.addEventListener('click', handleCartEvents);
+    document.addEventListener('touchend', handleCartEvents);
   }
 
   private toggleCartModal(show: boolean): void {

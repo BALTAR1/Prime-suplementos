@@ -121,7 +121,7 @@ const { productos, categorias, marcas } = productosData;
 												</div>
 											</div>
 											<button 
-												class="add-to-cart-btn w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-1.5 sm:py-2 text-xs sm:text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 transition-all duration-300 rounded-md"
+												class="add-to-cart-btn w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white text-center py-2 sm:py-2 text-xs sm:text-sm font-bold uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 active:from-orange-700 active:to-orange-800 transition-all duration-300 rounded-md touch-manipulation select-none min-h-[44px]"
 												data-product-id={producto.id}
 												data-product-name={producto.nombre}
 												data-product-brand={producto.marca}
@@ -241,6 +241,32 @@ const { productos, categorias, marcas } = productosData;
 		});
 	});
 </script>
+
+<style>
+	/* Mejoras para interacción táctil en móviles */
+	.add-to-cart-btn {
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		touch-action: manipulation;
+	}
+
+	.add-to-cart-btn:active {
+		transform: scale(0.98);
+	}
+
+	/* Asegurar área táctil mínima recomendada */
+	@media (max-width: 768px) {
+		.add-to-cart-btn {
+			min-height: 48px;
+			padding: 12px 16px;
+		}
+	}
+</style>
 
 <!-- Importar y configurar el carrito de WhatsApp -->
 <script src="../scripts/wsp-cart.ts"></script>
